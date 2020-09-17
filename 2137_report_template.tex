@@ -1,0 +1,109 @@
+% Digital Logic Report Template
+% Created: 2020-01-10, John Miller
+
+%==========================================================
+%=========== Document Setup  ==============================
+
+% Formatting defined by class file
+\documentclass[11pt]{article}
+
+% ---- Document formatting ----
+\usepackage[margin=1in]{geometry}	% Narrower margins
+\usepackage{booktabs}				% Nice formatting of tables
+\usepackage{graphicx}				% Ability to include graphics
+
+%\setlength\parindent{0pt}	% Do not indent first line of paragraphs 
+\usepackage[parfill]{parskip}		% Line space b/w paragraphs
+%	parfill option prevents last line of pgrph from being fully justified
+
+% Parskip package adds too much space around titles, fix with this
+\RequirePackage{titlesec}
+\titlespacing\section{0pt}{8pt plus 4pt minus 2pt}{3pt plus 2pt minus 2pt}
+\titlespacing\subsection{0pt}{4pt plus 4pt minus 2pt}{-2pt plus 2pt minus 2pt}
+\titlespacing\subsubsection{0pt}{2pt plus 4pt minus 2pt}{-6pt plus 2pt minus 2pt}
+
+% ---- Hyperlinks ----
+\usepackage[colorlinks=true,urlcolor=blue]{hyperref}	% For URL's. Automatically links internal references.
+
+% ---- Code listings ----
+\usepackage{listings} 					% Nice code layout and inclusion
+\usepackage[usenames,dvipsnames]{xcolor}	% Colors (needs to be defined before using colors)
+
+% Define custom colors for listings
+\definecolor{listinggray}{gray}{0.98}		% Listings background color
+\definecolor{rulegray}{gray}{0.7}			% Listings rule/frame color
+
+% Style for Verilog
+\lstdefinestyle{Verilog}{
+	language=Verilog,					% Verilog
+	backgroundcolor=\color{listinggray},	% light gray background
+	rulecolor=\color{blue}, 			% blue frame lines
+	frame=tb,							% lines above & below
+	linewidth=\columnwidth, 			% set line width
+	basicstyle=\small\ttfamily,	% basic font style that is used for the code	
+	breaklines=true, 					% allow breaking across columns/pages
+	tabsize=3,							% set tab size
+	commentstyle=\color{gray},	% comments in italic 
+	stringstyle=\upshape,				% strings are printed in normal font
+	showspaces=false,					% don't underscore spaces
+}
+
+% How to use: \Verilog[listing_options]{file}
+\newcommand{\Verilog}[2][]{%
+	\lstinputlisting[style=Verilog,#1]{#2}
+}
+
+
+
+
+%======================================================
+%=========== Body  ====================================
+\begin{document}
+
+\title{ELC 2137 Lab 03: Adders}
+\author{My Nguyen}
+
+\maketitle
+
+\section*{Summary}
+
+This lab's purpose is to create a circuit that implement a half, full, and 2-bit adder. To implement a half adder, a XOR gate is used to store the sum between two inputs and an AND gate is used to store the carry between two inputs. To implement a full adder, create a first stage half adder then pass its sum and the carry input into a second stage half adder to find the $S$. Then pass the second stage half adder carry and the first stage half adder into a XOR gate to find the carry output. To implement a 2-bit adder, use a full bit adder to find the $S_1$, then use the carry output from the first full adder to as the carry input for a second full adder to find the $S_2$ and the carry output of the 2-bit adder.
+
+
+\section*{Q\&A}
+1.
+\begin{center}
+	\includegraphics[width=\textwidth]{"sheet"}
+\end{center}
+
+2.
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth,angle=90]{"full_adder"}
+	\caption{Full Adder}
+\end{figure}
+
+3.
+\begin{center}
+	\begin{tabular}{c|c|c||c|c}
+		$C_{in}$ & A & B & $C_{1}$ & $C_{2}$ \\
+		\midrule
+		0 & 0 & 0 & 0 & 0 \\
+		0 & 0 & 1 & 0 & 0 \\
+		0 & 1 & 0 & 0 & 0 \\
+		0 & 1 & 1 & 1 & 0 \\
+		\midrule
+		1 & 0 & 0 & 0 & 0 \\
+		1 & 0 & 1 & 0 & 1 \\
+		1 & 1 & 0 & 0 & 1 \\
+		1 & 1 & 1 & 1 & 0 \\
+		\bottomrule
+	\end{tabular}
+	
+\end{center}
+From the truth table, we have prove by exhaustion that carry outputs of the first half adder and the second half adder cannot be high at the same time
+
+4. We should use an AND gate for carry bits, because when adding two bits, a carry is only needed when both input is a "1" so an AND gate would be appropriate to indicate the carry bits.
+
+
+\end{document}
